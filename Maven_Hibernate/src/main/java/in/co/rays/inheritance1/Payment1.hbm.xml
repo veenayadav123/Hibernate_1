@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 10 Jun, 2022 2:45:01 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="in.co.rays.inheritance1.Payment1" table="PAYMENT1">
+        <id name="paymentId" type="long">
+            <column name="PAYMENTID" />
+            <generator class="assigned" />
+        </id>
+        <property name="amount" type="int">
+            <column name="AMOUNT" />
+        </property>
+         <joined-subclass name="in.co.rays.inheritance1.CashPayment1" extends="in.co.rays.inheritance1.Payment1" table="CASHPAYMENT1" lazy="false">
+        <key>
+            <column name="PAYMENTID" />
+        </key>
+        <property name="paymentId" type="long" insert="false" update="false">
+            <column name="PAYMENTID" />
+        </property>
+    </joined-subclass>
+         <joined-subclass name="in.co.rays.inheritance1.ChequePayment1" extends="in.co.rays.inheritance1.Payment1" table="CHEQUEPAYMENT1" lazy="false">
+        <key>
+            <column name="PAYMENTID" />
+        </key>
+        <property name="paymentId" type="long" insert="false" update="false">
+            <column name="PAYMENTID" />
+        </property>
+        <property name="ChqNumber" type="java.lang.String">
+            <column name="CHQNUMBER" />
+        </property>
+        <property name="bankName" type="java.lang.String">
+            <column name="BANKNAME" />
+        </property>
+    </joined-subclass>
+     <joined-subclass name="in.co.rays.inheritance1.CreditPayment1" extends="in.co.rays.inheritance1.Payment1" table="CREDITPAYMENT1">
+        <key>
+            <column name="PAYMENTID" />
+        </key>
+        <property name="paymentId" type="long" insert="false" update="false">
+            <column name="PAYMENTID" />
+        </property>
+        <property name="ccType" type="java.lang.String">
+            <column name="CCTYPE" />
+        </property>
+    </joined-subclass>
+    </class>
+</hibernate-mapping>

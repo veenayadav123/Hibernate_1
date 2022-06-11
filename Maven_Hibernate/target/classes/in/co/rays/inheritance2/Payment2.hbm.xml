@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 10 Jun, 2022 4:16:53 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="in.co.rays.inheritance2.Payment2" table="PAYMENT2">
+		<id name="paymentId" type="long">
+			<column name="PAYMENTID" />
+			<generator class="assigned" />
+		</id>
+		<discriminator column="PAYMENTTYPE" type="string"></discriminator>
+
+	
+		<property name="amount" type="int">
+			<column name="AMOUNT" />
+		</property>
+		
+		
+		<subclass name="in.co.rays.inheritance2.CreditPayment2" discriminator-value="CREDIT">
+			<join table="Credit">
+				<key column="PAYMENTID"></key>
+				<property name="paymentId" type="long" insert="false" update="false">
+            <column name="PAYMENTID" />
+        </property>
+				<property name="ccType" type="java.lang.String">
+					<column name="CCTYPE" />
+				</property>
+			</join>
+		</subclass>
+		
+		<subclass name="in.co.rays.inheritance2.ChequePayment2" discriminator-value="CHEQUE">
+			<join table="Cheque">
+				<key column="PAYMENTID"></key>
+				<property name="paymentId" type="long" insert="false" update="false">
+            <column name="PAYMENTID" />
+        </property>
+				<property name="chqNumber" type="java.lang.String">
+					<column name="CHQNUMBER" />
+				</property>
+				<property name="bankName" type="java.lang.String">
+					<column name="BANKNAME" />
+				</property>
+			</join>
+		</subclass>
+		<subclass name="in.co.rays.inheritance2.CashPayment2" discriminator-value="CASH">
+	<join table="Cash">
+		<key column="PAYMENTID"></key>
+		<property name="paymentId" type="long" insert="false" update="false">
+            <column name="PAYMENTID" />
+        </property>
+		
+	</join>
+</subclass>
+	</class>
+</hibernate-mapping>

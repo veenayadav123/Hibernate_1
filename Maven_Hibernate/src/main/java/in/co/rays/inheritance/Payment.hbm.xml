@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 9 Jun, 2022 3:45:39 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="in.co.rays.inheritance.Payment" table="PAYMENT">
+
+		<id name="id" type="long">
+			<column name="ID" />
+			<generator class="assigned" />
+		</id>
+
+		<discriminator column="PAYMENT_TYPE" type="string"></discriminator>
+
+		<property name="amount" type="float">
+			<column name="AMOUNT" />
+		</property>
+
+		<property name="paymentType" type="java.lang.String">
+			<column name="PAYMENTTYPE" />
+		</property>
+
+		<subclass name="in.co.rays.inheritance.CreditCardPayment"
+			discriminator-value="credit">
+			<property name="ccType" column="CREDIT_TYPE"></property>
+		</subclass>
+
+		<subclass name="in.co.rays.inheritance.Cash"
+			discriminator-value="cash">
+
+		</subclass>
+
+		<subclass name="in.co.rays.inheritance.Cheque"
+			discriminator-value="CHEQUE_TYPE">
+			<property name="chqNumber" column="CHQ_NUMBER"></property>
+			<property name="bankName" column="BANK_NAME"></property>
+		</subclass>
+	</class>
+</hibernate-mapping>
